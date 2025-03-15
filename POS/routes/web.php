@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -29,3 +30,5 @@ Route::prefix('product/category')->group(function () {
 Route::get('/user/{id}/name/{name}', [UserController::class, 'view']);
 
 Route::get('/penjualan', [PenjualanController::class, 'view']);
+
+Route::get('/level', [LevelController::class, 'index']);
