@@ -18,6 +18,8 @@ Route::group(
         Route::post('/list', [UserController::class, 'list']);
         Route::get('/create', [UserController::class, 'create']);
         Route::post('/', [UserController::class, 'store']);
+        Route::get('/create_ajax', [UserController::class, 'create_ajax']);
+        Route::post('/ajax', [UserController::class, 'store_ajax']);
         Route::get('/{id}', [UserController::class, 'show']);
         Route::get('/{id}/edit', [UserController::class, 'edit']);
         Route::put('/{id}', [UserController::class, 'update']);
@@ -30,7 +32,7 @@ Route::group(
         Route::get('/', [LevelController::class, 'index']);
         Route::post('/list', [LevelController::class, 'list']);
         Route::get('/create', [LevelController::class, 'create']);
-        Route::post('/', [LevelController::class, 'store']);    
+        Route::post('/', [LevelController::class, 'store']);
         Route::get('/{id}', [LevelController::class, 'show']);
         Route::get('/{id}/edit', [LevelController::class, 'edit']);
         Route::put('/{id}', [LevelController::class, 'update']);
