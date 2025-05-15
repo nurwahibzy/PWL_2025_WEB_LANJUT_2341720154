@@ -65,5 +65,18 @@
                 </a>
             </li>
         </ul>
+        <!-- Tombol Logout -->
+        <ul class="nav nav-pills nav-sidebar flex-column mb-2">
+            <li class="nav-item">
+                <a href="{{ url('logout') }}" class="nav-link"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="nav-icon fas fa-sign-out-alt text-white"></i>
+                    <p>Logout</p>
+                </a>
+                <form id="logout-form" action={{ url('logout') }} method="GET" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+        </ul>
     </nav>
 </div>
