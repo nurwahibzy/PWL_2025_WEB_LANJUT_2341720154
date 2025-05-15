@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable; // implementasi class Authenticatable
 
-class UserModel extends Model
+class UserModel extends Authenticatable
 {
     use HasFactory;
 
@@ -24,4 +24,13 @@ class UserModel extends Model
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
     }
 
+      public function getRoleName(): string
+    {
+        return $this->level->level_nama;
+    }
+
+    public function hasRole($role): bool
+    {
+        return $this->level->level_kode === $role;
+    }
 }

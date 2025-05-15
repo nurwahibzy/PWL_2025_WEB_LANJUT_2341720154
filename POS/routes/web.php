@@ -12,17 +12,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::pattern('id', '[0-9]+');
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'postlogin']);
-Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'postlogin']);
+Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [WelcomeController::class, 'index']);
 
-    Route::group(
-        ['prefix' => 'user'],
-        function () {
+        Route::middleware(['authorize:ADM'])->prefix('user')->group(function () {
             Route::get('/', [UserController::class, 'index']);
             Route::post('/list', [UserController::class, 'list']);
             Route::get('/create', [UserController::class, 'create']);
