@@ -20,7 +20,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [WelcomeController::class, 'index']);
 
-        Route::middleware(['authorize:ADM'])->prefix('user')->group(function () {
+        Route::middleware(['authorize:ADM,MNG'])->prefix('user')->group(function () {
             Route::get('/', [UserController::class, 'index']);
             Route::post('/list', [UserController::class, 'list']);
             Route::get('/create', [UserController::class, 'create']);
@@ -37,9 +37,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}', [UserController::class, 'destroy']);
         }
     );
-    Route::group(
-        ['prefix' => 'level'],
-        function () {
+   Route::middleware(['authorize:ADM,MNG'])->prefix('level')->group(function () {
             Route::get('/', [LevelController::class, 'index']);
             Route::post('/list', [LevelController::class, 'list']);
             Route::get('/create', [LevelController::class, 'create']);
@@ -55,9 +53,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
         }
     );
-    Route::group(
-        ['prefix' => 'kategori'],
-        function () {
+    Route::middleware(['authorize:ADM,MNG'])->prefix('kategori')->group(function () {
             Route::get('/', [KategoriController::class, 'index']);
             Route::post('/list', [KategoriController::class, 'list']);
             Route::get('/create', [KategoriController::class, 'create']);
@@ -73,9 +69,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);
         }
     );
-    Route::group(
-        ['prefix' => 'supplier'],
-        function () {
+   Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(function () {
             Route::get('/', [SupplierController::class, 'index']);
             Route::post('/list', [SupplierController::class, 'list']);
             Route::get('/create', [SupplierController::class, 'create']);
@@ -92,9 +86,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
         }
     );
-    Route::group(
-        ['prefix' => 'barang'],
-        function () {
+    Route::middleware(['authorize:ADM,MNG,STF'])->prefix('barang')->group(function () {
             Route::get('/', [BarangController::class, 'index']);
             Route::post('/list', [BarangController::class, 'list']);
             Route::get('/create', [BarangController::class, 'create']);
