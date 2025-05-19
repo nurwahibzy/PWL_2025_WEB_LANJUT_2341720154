@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Contracts\Auth\SupportsBasicAuth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -41,9 +42,10 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}', [UserController::class, 'destroy']);
             Route::get('/import', [UserController::class, 'import']);
             Route::post('/import_ajax', [UserController::class, 'import_ajax']);
+            Route::get('/export_excel', [UserController::class, 'export_excel']);
         }
     );
-   Route::middleware(['authorize:ADM,MNG'])->prefix('level')->group(function () {
+    Route::middleware(['authorize:ADM,MNG'])->prefix('level')->group(function () {
             Route::get('/', [LevelController::class, 'index']);
             Route::post('/list', [LevelController::class, 'list']);
             Route::get('/create', [LevelController::class, 'create']);
@@ -59,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
             Route::get('/import', [LevelController::class, 'import']);
             Route::post('/import_ajax', [LevelController::class, 'import_ajax']);
+            Route::get('/export_excel', [LevelController::class, 'export_excel']);
         }
     );
     Route::middleware(['authorize:ADM,MNG'])->prefix('kategori')->group(function () {
@@ -77,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);
             Route::get('/import', [KategoriController::class, 'import']);
             Route::post('/import_ajax', [KategoriController::class, 'import_ajax']);
+            Route::get('/export_excel', [KategoriController::class, 'export_excel']);
         }
     );
     Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(function () {
@@ -96,6 +100,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
         Route::get('/import', [SupplierController::class, 'import']);
         Route::post('/import_ajax', [SupplierController::class, 'import_ajax']);
+        Route::get('/export_excel', [SupplierController::class, 'export_excel']);
         }
     );
     Route::middleware(['authorize:ADM,MNG,STF'])->prefix('barang')->group(function () {
