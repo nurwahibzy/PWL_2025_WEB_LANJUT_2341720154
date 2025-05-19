@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);
             Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']);
             Route::delete('/{id}', [UserController::class, 'destroy']);
+            Route::get('/import', [UserController::class, 'import']);
+            Route::post('/import_ajax', [UserController::class, 'import_ajax']);
         }
     );
    Route::middleware(['authorize:ADM,MNG'])->prefix('level')->group(function () {
@@ -55,6 +57,8 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']);
             Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);
             Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
+            Route::get('/import', [LevelController::class, 'import']);
+            Route::post('/import_ajax', [LevelController::class, 'import_ajax']);
         }
     );
     Route::middleware(['authorize:ADM,MNG'])->prefix('kategori')->group(function () {
@@ -71,23 +75,27 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/{id}/update_ajax', [KategoriController::class, 'update_ajax']);
             Route::get('/{id}/delete_ajax', [KategoriController::class, 'confirm_ajax']);
             Route::delete('/{id}/delete_ajax', [KategoriController::class, 'delete_ajax']);
+            Route::get('/import', [KategoriController::class, 'import']);
+            Route::post('/import_ajax', [KategoriController::class, 'import_ajax']);
         }
     );
-   Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(function () {
-            Route::get('/', [SupplierController::class, 'index']);
-            Route::post('/list', [SupplierController::class, 'list']);
-            Route::get('/create', [SupplierController::class, 'create']);
-            Route::post('/', [SupplierController::class, 'store']);
-            // Route::get('/{id}', [SupplierController::class, 'show']);
-            Route::get('/{id}/edit', [SupplierController::class, 'edit']);
-            Route::put('/{id}', [SupplierController::class, 'update']);
-            Route::delete('/{id}', [SupplierController::class, 'destroy']);
-            Route::get('/create_ajax', [SupplierController::class, 'create_ajax']);
-            Route::post('/ajax', [SupplierController::class, 'store_ajax']);
-            Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']);
-            Route::put('/{id}/update_ajax', [SupplierController::class, 'update_ajax']);
-            Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']);
-            Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
+    Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(function () {
+        Route::get('/', [SupplierController::class, 'index']);
+        Route::post('/list', [SupplierController::class, 'list']);
+        Route::get('/create', [SupplierController::class, 'create']);
+        Route::post('/', [SupplierController::class, 'store']);
+        // Route::get('/{id}', [SupplierController::class, 'show']);
+        Route::get('/{id}/edit', [SupplierController::class, 'edit']);
+        Route::put('/{id}', [SupplierController::class, 'update']);
+        Route::delete('/{id}', [SupplierController::class, 'destroy']);
+        Route::get('/create_ajax', [SupplierController::class, 'create_ajax']);
+        Route::post('/ajax', [SupplierController::class, 'store_ajax']);
+        Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']);
+        Route::put('/{id}/update_ajax', [SupplierController::class, 'update_ajax']);
+        Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']);
+        Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
+        Route::get('/import', [SupplierController::class, 'import']);
+        Route::post('/import_ajax', [SupplierController::class, 'import_ajax']);
         }
     );
     Route::middleware(['authorize:ADM,MNG,STF'])->prefix('barang')->group(function () {
