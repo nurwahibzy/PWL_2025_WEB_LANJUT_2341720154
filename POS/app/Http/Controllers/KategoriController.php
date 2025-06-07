@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yajra\DataTables\DataTables;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class KategoriController extends Controller
 {
@@ -315,5 +316,18 @@ class KategoriController extends Controller
 
         $writer->save('php://output');
         exit; // hentikan script setelah download
+    }
+
+    public function export_pdf()
+    {
+        $kategori = KategoriModel::select('kategori_id', 'kategori_kode', 'kategori_nama')
+            ->orderBy('kategori_id')
+            ->get();
+        $pdf = FacadePdf::loadView('kategori.export_pdf', ['kategori' => $kategori]);
+        $pdf->setPaper('A4', 'potrait');
+        $pdf->setOption("isRemoteEnabled", true);
+        $pdf->render();
+
+        return $pdf->stream('Data_Kategori_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
+use App\Models\KategoriModel;
 use Illuminate\Contracts\Auth\SupportsBasicAuth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/import', [UserController::class, 'import']);
             Route::post('/import_ajax', [UserController::class, 'import_ajax']);
             Route::get('/export_excel', [UserController::class, 'export_excel']);
+            Route::get('/export_pdf', [UserController::class, 'export_pdf']);
         }
     );
     Route::middleware(['authorize:ADM,MNG'])->prefix('level')->group(function () {
@@ -62,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/import', [LevelController::class, 'import']);
             Route::post('/import_ajax', [LevelController::class, 'import_ajax']);
             Route::get('/export_excel', [LevelController::class, 'export_excel']);
+            Route::get('/export_pdf', [LevelController::class, 'export_pdf']);
         }
     );
     Route::middleware(['authorize:ADM,MNG'])->prefix('kategori')->group(function () {
@@ -81,6 +84,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/import', [KategoriController::class, 'import']);
             Route::post('/import_ajax', [KategoriController::class, 'import_ajax']);
             Route::get('/export_excel', [KategoriController::class, 'export_excel']);
+            Route::get('/export_pdf', [KategoriController::class, 'export_pdf']);
         }
     );
     Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(function () {
@@ -101,6 +105,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/import', [SupplierController::class, 'import']);
         Route::post('/import_ajax', [SupplierController::class, 'import_ajax']);
         Route::get('/export_excel', [SupplierController::class, 'export_excel']);
+        Route::get('/export_pdf', [SupplierController::class, 'export_pdf']);
         }
     );
     Route::middleware(['authorize:ADM,MNG,STF'])->prefix('barang')->group(function () {
