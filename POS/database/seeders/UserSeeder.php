@@ -19,24 +19,27 @@ class UserSeeder extends Seeder
                 'user_id' => 1,
                 'level_id' => 1,
                 'username' => 'admin',
-                'name' => 'Administrator',
+                'nama' => 'Administrator',
                 'password' => Hash::make('12345'), // class untuk mengenkripsi/hash password
+                'foto_profil' => null,
             ],
             [
                 'user_id' => 2,
                 'level_id' => 2,
                 'username' => 'manager',
-                'name' => 'Manager',
+                'nama' => 'Manager',
                 'password' => Hash::make('12345'),
+                'foto_profil' => null,
             ],
             [
                 'user_id' => 3,
                 'level_id' => 3,
                 'username' => 'staff',
-                'name' => 'Staff/Kasir',
+                'nama' => 'Staff/Kasir',
                 'password' => Hash::make('12345'),
+                'foto_profil' => null,
             ],
         ];
-            DB::table('m_user')->insert($data);
+        DB::table('m_user')->insert($data);
     }
 }

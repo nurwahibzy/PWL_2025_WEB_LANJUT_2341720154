@@ -6,6 +6,8 @@ use App\Models\UserModel;
 use App\Models\LevelModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yajra\DataTables\Facades\DataTables;
@@ -247,7 +249,7 @@ class UserController extends Controller
         return redirect('/');
     }
 
-     public function import()
+    public function import()
     {
         return view('user.import');
     }
@@ -287,7 +289,7 @@ class UserController extends Controller
         return redirect('/');
     }
 
-     public function export_excel()
+    public function export_excel()
     {
         $user = UserModel::with('level')->get(); // ambil data user beserta levelnya
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -333,11 +335,11 @@ class UserController extends Controller
         exit; // hentikan script setelah download
     }
 
-     public function export_pdf()
+    public function export_pdf()
     {
-        $user = UserModel::select('user_id','username', 'nama', 'level_id' )
+        $user = UserModel::select('user_id', 'username', 'nama', 'level_id')
             ->orderBy('user_id')
-            ->with('level') 
+            ->with('level')
             ->get();
         $pdf = Pdf::loadView('user.export_pdf', ['user' => $user]);
         $pdf->setPaper('A4', 'potrait');
@@ -345,5 +347,49 @@ class UserController extends Controller
         $pdf->render();
 
         return $pdf->stream('Data_Kategori_' . date('Y-m-d_H-i-s') . '.pdf');
+    }
+
+    public function update_profile()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Update Profile',
+            'list'  => ['Home', 'User']
+        ];
+
+        $page = (object) [
+            'title' => 'Profile User'
+        ];
+        $activeMenu = 'update_profile'; // set menu yang sedang aktif
+
+        return view('profile', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+    }
+
+    public function update_profile_post(Request $request)
+    {
+        $user = UserModel::find(Auth::id());
+
+        $request->validate([
+            'nama' => 'required|string|max:100',
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Update nama
+        $user->nama = $request->nama;
+
+        // Handle file upload
+        if ($request->hasFile('foto_profil')) {
+            // Delete old image if exists
+            if ($user->foto_profil && Storage::exists('public/' . $user->foto_profil)) {
+                Storage::delete('public/' . $user->foto_profil);
+            }
+
+            // Store new image
+            $path = $request->file('foto_profil')->store('profil', 'public');
+            $user->foto_profil = $path; // Update the profile picture path
+        }
+
+        $user->save();
+
+        return redirect('/user/update_profile')->with('success', 'Profile updated successfully!');
     }
 }

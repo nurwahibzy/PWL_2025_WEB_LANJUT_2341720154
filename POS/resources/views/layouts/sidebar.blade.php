@@ -32,6 +32,13 @@
                     <p>Data User</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ url('/user/update_profile') }}"
+                    class="nav-link {{ $activeMenu == 'update_profile' ? 'active' : '' }}">
+                    <i class="nav-icon far fa-user"></i>
+                    <p>Update Profile</p>
+                </a>
+            </li>
             <li class="nav-header">Data Barang</li>
             <li class="nav-item">
                 <a href="{{ url('/kategori') }}" class="nav-link {{ $activeMenu == 'kategori' ? 'active' : '' }} ">
@@ -69,7 +76,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column mb-2">
             <li class="nav-item">
                 <a href="{{ url('logout') }}" class="nav-link"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="nav-icon fas fa-sign-out-alt text-white"></i>
                     <p>Logout</p>
                 </a>

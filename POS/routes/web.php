@@ -26,7 +26,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [WelcomeController::class, 'index']);
 
-        Route::middleware(['authorize:ADM,MNG'])->prefix('user')->group(function () {
+    //menambahkan route untuk update profile
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/update_profile', [UserController::class, 'update_profile']); // menampilkan halaman form edit profile
+        Route::post('/update_profile', [UserController::class, 'update_profile_post']); // menyimpan perubahan data profile
+    });
+
+    Route::middleware(['authorize:ADM,MNG'])->prefix('user')->group(
+        function () {
             Route::get('/', [UserController::class, 'index']);
             Route::post('/list', [UserController::class, 'list']);
             Route::get('/create', [UserController::class, 'create']);
@@ -47,7 +54,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/export_pdf', [UserController::class, 'export_pdf']);
         }
     );
-    Route::middleware(['authorize:ADM,MNG'])->prefix('level')->group(function () {
+    Route::middleware(['authorize:ADM,MNG'])->prefix('level')->group(
+        function () {
             Route::get('/', [LevelController::class, 'index']);
             Route::post('/list', [LevelController::class, 'list']);
             Route::get('/create', [LevelController::class, 'create']);
@@ -67,7 +75,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/export_pdf', [LevelController::class, 'export_pdf']);
         }
     );
-    Route::middleware(['authorize:ADM,MNG'])->prefix('kategori')->group(function () {
+    Route::middleware(['authorize:ADM,MNG'])->prefix('kategori')->group(
+        function () {
             Route::get('/', [KategoriController::class, 'index']);
             Route::post('/list', [KategoriController::class, 'list']);
             Route::get('/create', [KategoriController::class, 'create']);
@@ -87,28 +96,30 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/export_pdf', [KategoriController::class, 'export_pdf']);
         }
     );
-    Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(function () {
-        Route::get('/', [SupplierController::class, 'index']);
-        Route::post('/list', [SupplierController::class, 'list']);
-        Route::get('/create', [SupplierController::class, 'create']);
-        Route::post('/', [SupplierController::class, 'store']);
-        // Route::get('/{id}', [SupplierController::class, 'show']);
-        Route::get('/{id}/edit', [SupplierController::class, 'edit']);
-        Route::put('/{id}', [SupplierController::class, 'update']);
-        Route::delete('/{id}', [SupplierController::class, 'destroy']);
-        Route::get('/create_ajax', [SupplierController::class, 'create_ajax']);
-        Route::post('/ajax', [SupplierController::class, 'store_ajax']);
-        Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']);
-        Route::put('/{id}/update_ajax', [SupplierController::class, 'update_ajax']);
-        Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']);
-        Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
-        Route::get('/import', [SupplierController::class, 'import']);
-        Route::post('/import_ajax', [SupplierController::class, 'import_ajax']);
-        Route::get('/export_excel', [SupplierController::class, 'export_excel']);
-        Route::get('/export_pdf', [SupplierController::class, 'export_pdf']);
+    Route::middleware(['authorize:ADM,MNG'])->prefix('supplier')->group(
+        function () {
+            Route::get('/', [SupplierController::class, 'index']);
+            Route::post('/list', [SupplierController::class, 'list']);
+            Route::get('/create', [SupplierController::class, 'create']);
+            Route::post('/', [SupplierController::class, 'store']);
+            // Route::get('/{id}', [SupplierController::class, 'show']);
+            Route::get('/{id}/edit', [SupplierController::class, 'edit']);
+            Route::put('/{id}', [SupplierController::class, 'update']);
+            Route::delete('/{id}', [SupplierController::class, 'destroy']);
+            Route::get('/create_ajax', [SupplierController::class, 'create_ajax']);
+            Route::post('/ajax', [SupplierController::class, 'store_ajax']);
+            Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']);
+            Route::put('/{id}/update_ajax', [SupplierController::class, 'update_ajax']);
+            Route::get('/{id}/delete_ajax', [SupplierController::class, 'confirm_ajax']);
+            Route::delete('/{id}/delete_ajax', [SupplierController::class, 'delete_ajax']);
+            Route::get('/import', [SupplierController::class, 'import']);
+            Route::post('/import_ajax', [SupplierController::class, 'import_ajax']);
+            Route::get('/export_excel', [SupplierController::class, 'export_excel']);
+            Route::get('/export_pdf', [SupplierController::class, 'export_pdf']);
         }
     );
-    Route::middleware(['authorize:ADM,MNG,STF'])->prefix('barang')->group(function () {
+    Route::middleware(['authorize:ADM,MNG,STF'])->prefix('barang')->group(
+        function () {
             Route::get('/', [BarangController::class, 'index']);
             Route::post('/list', [BarangController::class, 'list']);
             Route::get('/create', [BarangController::class, 'create']);

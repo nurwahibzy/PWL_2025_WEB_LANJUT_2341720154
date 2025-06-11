@@ -132,5 +132,17 @@
         <i class="fas fa-th-large"></i>
       </a>
     </li>
+    <li class="nav-item d-flex align-items-center gap-2">
+      @if(auth()->user()->foto_profil && file_exists(public_path('storage/' . auth()->user()->foto_profil)))
+          <img src="{{ asset('storage/' . auth()->user()->foto_profil) }}"
+              class="rounded-circle mr-2" style="object-fit: cover" width="40" height="40"
+              alt="Profile" />
+      @else
+          <img src="{{ asset('profile_default.jpg') }}"
+              class="rounded-circle mr-2" style="object-fit: cover" width="40" height="40"
+              alt="Default Profile" />
+     @endif
+    <span>{{ auth()->user()->nama }}</span>
+    </li>
   </ul>
 </nav>
