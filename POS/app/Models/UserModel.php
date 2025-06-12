@@ -6,15 +6,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable; // implementasi class Authenticatable
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class UserModel extends Authenticatable
+class UserModel extends Authenticatable implements JWTSubject
 {
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
+
     use HasFactory;
 
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
 
-    protected $fillable = ['level_id', 'username', 'nama', 'password','foto_profil'];
+    protected $fillable = ['level_id', 'username', 'nama', 'password', 'foto_profil'];
 
     protected $hidden = ['password']; // jangan ditampilkan pada saat di select
 
@@ -24,7 +34,7 @@ class UserModel extends Authenticatable
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
     }
 
-      public function getRoleName(): string
+    public function getRoleName(): string
     {
         return $this->level->level_nama;
     }
