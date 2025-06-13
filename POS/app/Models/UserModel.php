@@ -24,7 +24,7 @@ class UserModel extends Authenticatable implements JWTSubject
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
 
-    protected $fillable = ['level_id', 'username', 'nama', 'password', 'foto_profil'];
+    protected $fillable = ['level_id', 'username', 'nama', 'password', 'foto_profil','image']; // kolom yang bisa diisi
 
     protected $hidden = ['password']; // jangan ditampilkan pada saat di select
 
