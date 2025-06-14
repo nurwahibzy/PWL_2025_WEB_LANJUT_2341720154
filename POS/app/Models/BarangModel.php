@@ -26,7 +26,8 @@ class BarangModel extends Model implements JWTSubject
         'barang_nama',
         'harga_beli',
         'harga_jual',
-        'kategori_id'
+        'kategori_id',
+        'image',
     ];
 
     public function kategori(): BelongsTo
